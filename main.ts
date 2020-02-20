@@ -51,11 +51,17 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     motors.largeBC.tank(30, 30, 0.3, MoveUnit.Rotations)
     motors.largeB.run(30, -0.65, MoveUnit.Rotations)
     motors.largeBC.steer(0, 25, 3.3, MoveUnit.Rotations)
-    motors.mediumD.run(100, 1, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, 0.3, MoveUnit.Rotations)
-    motors.mediumD.run(100, -2, MoveUnit.Rotations)
-    motors.largeBC.tank(20, 20, 0.45, MoveUnit.Rotations)
     motors.mediumD.run(100, 2, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, 0.4, MoveUnit.Rotations)
+    motors.mediumD.run(100, -2, MoveUnit.Rotations)
+    motors.largeBC.tank(20, 20, 0.35, MoveUnit.Rotations)
+    motors.mediumD.run(100, 2, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, -0.5, MoveUnit.Rotations)
+    motors.largeB.run(30, 0.5, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, 0.6, MoveUnit.Rotations)
+    motors.mediumD.run(100, 2, MoveUnit.Rotations)
+    motors.largeB.run(30, -0.3, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, 0.8, MoveUnit.Rotations)
 })
 
 
@@ -153,6 +159,20 @@ function do_crne(svetlost: number, moc: number, senzor: number) {
 
 
 /*
+PODPROGRAM ZA OBRAČANJE PO KOTIH
+*/
+
+
+function obracanje_po_kotih(smer: number, kot: number) {
+    motors.largeBC.setInverted(true)
+    sensors.gyro3.reset()
+    motors.largeBC.steer(smer, 30)
+    sensors.gyro3.pauseUntilRotated(kot)
+    motors.stopAll()
+}
+
+
+/*
 PODPROGRAM ZA IZPIS POMEMBNIH VREDNOSTI SENZORJEV
 */
 forever(function () {
@@ -176,6 +196,8 @@ let senzor = 0
 let i = 0
 let svetlost = 0
 let maxmoc = 0
+let smer = 0
+let kot = 0
 sensors.color1.reflectedLight()
 sensors.color2.reflectedLight()
 sensors.gyro3.angle()
