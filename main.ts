@@ -16,7 +16,7 @@ brick.buttonUp.onEvent(ButtonEvent.Pressed, function () {
     motors.largeBC.setInverted(true)
     pospesevanje(20)
     motors.largeBC.tank(30, 30, 1, MoveUnit.Rotations)
-    do_bele(90, 20, 2)
+    do_crte(90, 20, 2)
     motors.largeBC.tank(10, 10, 0.35, MoveUnit.Rotations)
     control.waitMicros(100000)
     motors.largeBC.tank(30, 30, -0.1, MoveUnit.Rotations)
@@ -32,7 +32,7 @@ brick.buttonLeft.onEvent(ButtonEvent.Pressed, function () {
     motors.mediumA.run(100, 0.8, MoveUnit.Seconds)
     motors.largeB.run(30, 0.35, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, -0.9, MoveUnit.Rotations)
-    do_bele(90, 30, 1)
+    do_crte(90, 30, 1)
     control.waitMicros(200000)
     motors.largeB.run(30, -0.9, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, 2.4, MoveUnit.Rotations)
@@ -44,24 +44,25 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     motors.largeBC.setInverted(true)
     pospesevanje(30)
     motors.largeBC.steer(0, 30, 1.5, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, -0.1, MoveUnit.Rotations)
+    motors.largeB.setBrake(true)
     motors.largeB.run(30, 2, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, -0.5, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, 0.5, MoveUnit.Rotations)
-    do_bele(80, 30, 2)
-    motors.largeBC.tank(30, 30, 0.3, MoveUnit.Rotations)
-    motors.largeB.run(30, -0.65, MoveUnit.Rotations)
-    motors.largeBC.steer(0, 25, 3.3, MoveUnit.Rotations)
+    do_crne(2)
+    obracanje_po_kotih(50, 80, false)
+    motors.largeBC.steer(0, 25, 3.4, MoveUnit.Rotations)
     motors.mediumD.run(100, 2, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, 0.4, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, 0.3, MoveUnit.Rotations)
     motors.mediumD.run(100, -2, MoveUnit.Rotations)
     motors.largeBC.tank(20, 20, 0.35, MoveUnit.Rotations)
     motors.mediumD.run(100, 2, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, -0.5, MoveUnit.Rotations)
     motors.largeB.run(30, 0.5, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, 0.6, MoveUnit.Rotations)
-    motors.mediumD.run(100, 2, MoveUnit.Rotations)
+    motors.mediumD.run(100, 0.75, MoveUnit.Rotations)
     motors.largeB.run(30, -0.3, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, 0.8, MoveUnit.Rotations)
+    motors.mediumD.run(100, -6, MoveUnit.Rotations)
 })
 
 
@@ -113,9 +114,9 @@ function pospesevanje(maxmoc: number) {
 
 
 /*
-PODPROGRAM ZA VOŽNJO DO BELE CRTE
+PODPROGRAM ZA VOŽNJO DO CRTE
 */
-function do_bele(svetlost: number, moc: number, senzor: number) {
+function do_crte(svetlost: number, moc: number, senzor: number) {
     motors.largeBC.setInverted(true)
     motors.largeBC.setBrake(true)
     // če rabimo senzor ena
@@ -136,36 +137,17 @@ function do_bele(svetlost: number, moc: number, senzor: number) {
 
 
 /*
-PODPROGRAM ZA VOŽNJO DO CRNE CRTE
-*/
-function do_crne(svetlost: number, moc: number, senzor: number) {
-    motors.largeBC.setInverted(true)
-    motors.largeBC.setBrake(true)
-    // če rabimo senzor ena
-    if (senzor = 1) {
-        while (sensors.color1.light(LightIntensityMode.Reflected) > svetlost) {
-            motors.largeBC.tank(moc, moc)
-        }
-        motors.stopAll()
-    }
-    // če rabimo senzor dva
-    if (senzor = 2) {
-        while (sensors.color2.light(LightIntensityMode.Reflected) > svetlost) {
-            motors.largeBC.tank(moc, moc)
-        }
-        motors.stopAll()
-    }
-}
-
-
-/*
 PODPROGRAM ZA OBRAČANJE PO KOTIH
 */
 
 
-function obracanje_po_kotih(smer: number, kot: number) {
-    motors.largeBC.setInverted(true)
-    sensors.gyro3.reset()
+function obracanje_po_kotih(smer: number, kot: number, naprej: boolean) {
+    if (naprej = true) {
+        motors.largeBC.setInverted(true)
+    }
+    else {
+        motors.largeBC.setInverted(false)
+    }
     motors.largeBC.steer(smer, 30)
     sensors.gyro3.pauseUntilRotated(kot)
     motors.stopAll()
@@ -173,8 +155,27 @@ function obracanje_po_kotih(smer: number, kot: number) {
 
 
 /*
-PODPROGRAM ZA IZPIS POMEMBNIH VREDNOSTI SENZORJEV
+PODPROGRAM ZA VOŽNJO DO CRNE CRTE
 */
+function do_crne(senzor: number) {
+    motors.largeBC.setInverted(true)
+    motors.largeBC.setBrake(true)
+    if (senzor = 1) {
+        motors.largeBC.steer(0, 30)
+        sensors.color1.pauseUntilColorDetected(ColorSensorColor.Black)
+        motors.largeBC.stop()
+    }
+    if (senzor = 2) {
+        motors.largeBC.steer(0, 30)
+        sensors.color2.pauseUntilColorDetected(ColorSensorColor.Black)
+        motors.largeBC.stop()
+    }
+}
+
+
+/*
+PODPROGRAM ZA IZPIS POMEMBNIH VREDNOSTI SENZORJEV
+
 forever(function () {
     brick.showString("Color 1", 1)
     brick.showNumber(sensors.color1.light(LightIntensityMode.Reflected), 2)
@@ -185,10 +186,11 @@ forever(function () {
 
 })
 
-
+*/
 /*
 SPREMENLJIVKE
 */
+let naprej = true
 let moc = 0
 let popravek = 0
 let moc3 = 0
