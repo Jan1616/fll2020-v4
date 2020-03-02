@@ -46,10 +46,10 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     motors.largeBC.steer(0, 30, 1.5, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, -0.1, MoveUnit.Rotations)
     motors.largeB.setBrake(true)
-    motors.largeB.run(30, 2, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, -0.5, MoveUnit.Rotations)
+    motors.largeB.run(30, 2.5, MoveUnit.Rotations)
     do_crne(2)
-    obracanje_po_kotih(50, 80, false)
+    motors.mediumD.run(100, -2, MoveUnit.Rotations)
+    obracanje_po_kotih(50, 83, false)
     motors.largeBC.steer(0, 25, 3.4, MoveUnit.Rotations)
     motors.mediumD.run(100, 2, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, 0.3, MoveUnit.Rotations)
@@ -94,7 +94,6 @@ function vozi_ravno(cm: number) {
         brick.showNumber(popravek, 8)
         brick.showString("360*cm/29", 9)
         brick.showNumber(Math.abs(motors.largeB.angle()), 10)
-
     }
 }
 
@@ -160,13 +159,12 @@ PODPROGRAM ZA VOŽNJO DO CRNE CRTE
 function do_crne(senzor: number) {
     motors.largeBC.setInverted(true)
     motors.largeBC.setBrake(true)
+    motors.largeBC.steer(0, 30)
     if (senzor = 1) {
-        motors.largeBC.steer(0, 30)
         sensors.color1.pauseUntilColorDetected(ColorSensorColor.Black)
         motors.largeBC.stop()
     }
     if (senzor = 2) {
-        motors.largeBC.steer(0, 30)
         sensors.color2.pauseUntilColorDetected(ColorSensorColor.Black)
         motors.largeBC.stop()
     }
@@ -175,7 +173,7 @@ function do_crne(senzor: number) {
 
 /*
 PODPROGRAM ZA IZPIS POMEMBNIH VREDNOSTI SENZORJEV
-
+*/
 forever(function () {
     brick.showString("Color 1", 1)
     brick.showNumber(sensors.color1.light(LightIntensityMode.Reflected), 2)
@@ -186,7 +184,7 @@ forever(function () {
 
 })
 
-*/
+
 /*
 SPREMENLJIVKE
 */
@@ -204,4 +202,3 @@ sensors.color1.reflectedLight()
 sensors.color2.reflectedLight()
 sensors.gyro3.angle()
 brick.setStatusLight(StatusLight.Orange)
-//Čudovito!!
