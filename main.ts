@@ -48,6 +48,7 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     motors.largeB.setBrake(true)
     motors.largeB.run(30, 2.5, MoveUnit.Rotations)
     do_crne(2)
+    motors.stopAll()
     motors.mediumD.run(100, -2, MoveUnit.Rotations)
     obracanje_po_kotih(50, 83, false)
     motors.largeBC.steer(0, 25, 3.4, MoveUnit.Rotations)
@@ -159,7 +160,7 @@ PODPROGRAM ZA VOŽNJO DO CRNE CRTE
 function do_crne(senzor: number) {
     motors.largeBC.setInverted(true)
     motors.largeBC.setBrake(true)
-    motors.largeBC.steer(0, 30)
+    motors.largeBC.steer(0, 20)
     if (senzor = 1) {
         sensors.color1.pauseUntilColorDetected(ColorSensorColor.Black)
         motors.largeBC.stop()
