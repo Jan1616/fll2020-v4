@@ -46,11 +46,11 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     motors.largeBC.steer(0, 30, 1.5, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, -0.1, MoveUnit.Rotations)
     motors.largeB.setBrake(true)
-    motors.largeB.run(30, 2.5, MoveUnit.Rotations)
+    motors.largeB.run(50, 2.5, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, 0.2, MoveUnit.Rotations)
     do_crne(2)
-    motors.stopAll()
     motors.mediumD.run(100, -2, MoveUnit.Rotations)
-    obracanje_po_kotih(50, 83, false)
+    motors.largeB.run(30, -0.75, MoveUnit.Rotations)
     motors.largeBC.steer(0, 25, 3.4, MoveUnit.Rotations)
     motors.mediumD.run(100, 2, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, 0.3, MoveUnit.Rotations)
@@ -64,15 +64,19 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     motors.largeB.run(30, -0.3, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, 0.8, MoveUnit.Rotations)
     motors.mediumD.run(100, -6, MoveUnit.Rotations)
+
 })
 
 
 sensors.color1.calibrateLight(LightIntensityMode.Reflected)
+sensors.color2.calibrateLight(LightIntensityMode.Reflected)
 
 
 // KALIBRIRA GYRO
 brick.buttonRight.onEvent(ButtonEvent.Pressed, function () {
     sensors.gyro3.calibrate()
+    brick.showString("Gyro 3", 1)
+    brick.showNumber(sensors.gyro3.angle(), 2)
 })
 
 
@@ -174,7 +178,6 @@ function do_crne(senzor: number) {
 
 /*
 PODPROGRAM ZA IZPIS POMEMBNIH VREDNOSTI SENZORJEV
-*/
 forever(function () {
     brick.showString("Color 1", 1)
     brick.showNumber(sensors.color1.light(LightIntensityMode.Reflected), 2)
@@ -184,7 +187,7 @@ forever(function () {
     brick.showNumber(sensors.gyro3.angle(), 6)
 
 })
-
+*/
 
 /*
 SPREMENLJIVKE
