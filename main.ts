@@ -47,6 +47,7 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     motors.largeBC.tank(30, 30, -0.1, MoveUnit.Rotations)
     motors.largeB.setBrake(true)
     motors.largeB.run(50, 2.5, MoveUnit.Rotations)
+    motors.largeBC.tank(100, 100, -0.5, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, 0.2, MoveUnit.Rotations)
     do_crne(2)
     motors.mediumD.run(100, -2, MoveUnit.Rotations)
@@ -57,14 +58,14 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     motors.mediumD.run(100, -2.3, MoveUnit.Rotations)
     motors.largeBC.tank(20, 20, 0.25, MoveUnit.Rotations)
     motors.mediumD.run(100, 2.5, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, -0.6, MoveUnit.Rotations)
-    do_crne_l(2)
-    motors.mediumD.run(100, -0.5, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, 0.85, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, -0.65, MoveUnit.Rotations)
+    do_crne_l(1)
+    motors.mediumD.run(100, -0.7, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, 0.75, MoveUnit.Rotations)
     motors.largeB.run(30, -1, MoveUnit.Rotations)
     motors.mediumD.run(100, -2, MoveUnit.Rotations)
     motors.largeBC.tank(100, 100, -2, MoveUnit.Rotations)
-    motors.largeB.run(30, 0.1, MoveUnit.Rotations)
+    motors.largeB.run(30, 0.3, MoveUnit.Rotations)
     motors.largeBC.tank(100, 100, -6, MoveUnit.Rotations)
 })
 
@@ -184,6 +185,24 @@ function do_crne_l(senzor: number) {
     motors.largeB.setInverted(true)
     motors.largeB.setBrake(true)
     motors.largeB.run(-20)
+    if (senzor = 1) {
+        sensors.color1.pauseUntilColorDetected(ColorSensorColor.Black)
+        motors.largeBC.stop()
+    }
+    if (senzor = 2) {
+        sensors.color2.pauseUntilColorDetected(ColorSensorColor.Black)
+        motors.largeBC.stop()
+    }
+}
+
+
+/*
+PODPROGRAM ZA VOŽNJO DO CRNE CRTE V DESNO SMER
+*/
+function do_crne_d(senzor: number) {
+    motors.largeC.setInverted(true)
+    motors.largeC.setBrake(true)
+    motors.largeC.run(-20)
     if (senzor = 1) {
         sensors.color1.pauseUntilColorDetected(ColorSensorColor.Black)
         motors.largeBC.stop()
