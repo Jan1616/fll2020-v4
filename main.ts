@@ -44,28 +44,11 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     motors.largeBC.setInverted(true)
     pospesevanje(30)
     motors.largeBC.steer(0, 30, 1.5, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, -0.1, MoveUnit.Rotations)
-    motors.largeB.setBrake(true)
-    motors.largeB.run(50, 2.5, MoveUnit.Rotations)
-    motors.largeBC.tank(100, 100, -0.5, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, 0.2, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, -0.2, MoveUnit.Rotations)
+    motors.largeBC.tank(-20, 20, 0.4, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, -0.5, MoveUnit.Rotations)
     do_crne(2)
-    motors.mediumD.run(100, -2, MoveUnit.Rotations)
-    motors.largeB.run(30, -0.75, MoveUnit.Rotations)
-    motors.largeBC.steer(0, 25, 3.4, MoveUnit.Rotations)
-    motors.mediumD.run(100, 1.55, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, 0.25, MoveUnit.Rotations)
-    motors.mediumD.run(100, -2.3, MoveUnit.Rotations)
-    motors.largeBC.tank(20, 20, 0.25, MoveUnit.Rotations)
-    motors.mediumD.run(100, 2.5, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, -0.65, MoveUnit.Rotations)
-    do_crne_n(1)
-    motors.mediumD.run(100, 1, MoveUnit.Rotations)
-    sledenje(3, 1.6)
-    motors.largeC.stop()
-    motors.mediumD.run(100, -2, MoveUnit.Rotations)
-    motors.largeBC.tank(100, 100, -6, MoveUnit.Rotations)
-    motors.largeC.run(30, -0.5, MoveUnit.Rotations)
+    sledenje(5, 1.6, 2)
 })
 
 
@@ -214,15 +197,22 @@ function do_crne_l(senzor: number) {
 
 
 /*
-SLEDENJE ČRTI
+POSPROGRAM SLEDENJE ČRTI
 */
-function sledenje(cas: number, obcutljivost: number) {
+function sledenje(cas: number, obcutljivost: number, senzor: number) {
     control.timer1.reset()
     while (control.timer1.seconds() < cas) {
         motors.largeBC.setInverted(true)
-        napaka = 50 - sensors.color1.light(LightIntensityMode.Reflected)
-        hitrost_obracanja = obcutljivost * napaka
-        motors.largeBC.steer(hitrost_obracanja, 15)
+        if (senzor == 1) {
+            napaka = 50 - sensors.color1.light(LightIntensityMode.Reflected)
+            hitrost_obracanja = obcutljivost * napaka
+            motors.largeBC.steer(hitrost_obracanja, 15)
+        }
+        if (senzor == 2) {
+            napaka = 50 - sensors.color2.light(LightIntensityMode.Reflected)
+            hitrost_obracanja = obcutljivost * napaka
+            motors.largeBC.steer(hitrost_obracanja, 15)
+        }
         brick.showNumber(sensors.color1.light(LightIntensityMode.Reflected), 1)
         brick.showNumber(sensors.color2.light(LightIntensityMode.Reflected), 2)
         brick.showNumber(hitrost_obracanja, 3)
