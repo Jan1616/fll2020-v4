@@ -45,10 +45,15 @@ brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
     pospesevanje(30)
     motors.largeBC.steer(0, 30, 1.5, MoveUnit.Rotations)
     motors.largeBC.tank(30, 30, -0.2, MoveUnit.Rotations)
-    motors.largeBC.tank(-20, 20, 0.4, MoveUnit.Rotations)
-    motors.largeBC.tank(30, 30, -0.5, MoveUnit.Rotations)
+    motors.largeBC.tank(-20, 20, 0.35, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, -1, MoveUnit.Rotations)
+    motors.largeBC.tank(30, 30, 0.1, MoveUnit.Rotations)
     do_crne(2)
-    sledenje(5, 1.6, 2)
+    motors.largeBC.tank(30, 30, 0.75, MoveUnit.Rotations)
+    do_crne_d(2)
+    sledenje(5, 1.25, 2)
+    motors.largeBC.tank(30, 30, 0.75, MoveUnit.Rotations)
+    motors.largeBC.stop()
 })
 
 
@@ -197,7 +202,7 @@ function do_crne_l(senzor: number) {
 
 
 /*
-POSPROGRAM SLEDENJE ČRTI
+PODPROGRAM ZA SLEDENJE ČRTI
 */
 function sledenje(cas: number, obcutljivost: number, senzor: number) {
     control.timer1.reset()
