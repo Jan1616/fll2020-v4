@@ -8,7 +8,21 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "Functions.ts"
+        "V2-jajca_na_oko.ts",
+        "V1-Oranzna_zirafa.ts",
+        "V4-pukl.ts",
+        "V3-misja_past.ts",
+        "gyro_calibrate.ts",
+        "vozi_ravno.ts",
+        "pospesevanje.ts",
+        "do_bele.ts",
+        "obracanje_po_kotih.ts",
+        "do_crne.ts",
+        "do_crne_nazaj.ts",
+        "do_crne_levo.ts",
+        "sledenje.ts",
+        "do_crte_desno.ts",
+        "izpis_funkcij.ts"
     ],
     "testFiles": [
         "test.ts"
