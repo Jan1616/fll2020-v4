@@ -22,7 +22,8 @@
         "do_crne_levo.ts",
         "sledenje.ts",
         "do_crte_desno.ts",
-        "izpis_funkcij.ts"
+        "izpis_funkcij.ts",
+        "V3-dreva.ts"
     ],
     "testFiles": [
         "test.ts"

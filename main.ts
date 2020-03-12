@@ -3,17 +3,23 @@
 brick.buttonDown.onEvent(ButtonEvent.Pressed, function () {
     jaja_na_oko()
 })
+
 // MISIJA 1(ORANŽNA ŽIRAFA)
 brick.buttonUp.onEvent(ButtonEvent.Pressed, function () {
     oranzna_zirafa()
 })
+
 // MISIJA 4(PUKL)
 brick.buttonLeft.onEvent(ButtonEvent.Pressed, function () {
     pukl()
 })
-// MISIJA 3(MIŠJA PAST)
+
+// MISIJA 3(MIŠJA PAST)-REZERVA
+//misja_past()
+
+//MISIJA 3(DREVA)
 brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
-    misja_past()
+    dreva()
 })
 
 sensors.color1.calibrateLight(LightIntensityMode.Reflected)
@@ -36,6 +42,7 @@ let svetlost = 0
 let maxmoc = 0
 let smer = 0
 let kot = 0
+
 sensors.color1.reflectedLight()
 sensors.color2.reflectedLight()
 sensors.gyro3.angle()
